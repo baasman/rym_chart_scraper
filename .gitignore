@@ -1,0 +1,3 @@
+*.sublime-project
+*.rym_chart_scraper.sublime-workspace
+rym_chart_scraper/__pycache__/
