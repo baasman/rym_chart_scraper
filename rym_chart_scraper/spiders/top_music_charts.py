@@ -1,5 +1,5 @@
 from scrapy import Spider, Request
-from rym_chart_scraper.utility import find_between
+from rym_chart_scraper.utility import find_between, listToString
 from rym_chart_scraper.items import TopAlbumChartItem
 from datetime import datetime
 
@@ -11,6 +11,8 @@ class TopAlbumChartSpider(Spider):
     start_urls = [
         "https://rateyourmusic.com/charts/top/album/all-time"
     ]
+
+    n_pages = 1
 
     def parse(self, response):
 
@@ -36,9 +38,10 @@ class TopAlbumChartSpider(Spider):
                 'a.album::text').extract_first()
             item['Chart_year'] = chart_detail_l2.css(
                 'span.chart_year::text').extract_first()
-            item['Genre'] = chart_detail_l3.css('span.chart_genres').css(
-                'a.genre::text').extract()
-            item['RYM_rating'] = cstats[0]
+            item['Genre'] = listToString(chart_detail_l3.
+                                         css('span.chart_genres').css(
+                                             'a.genre::text').extract())
+            item['RYMRating'] = cstats[0]
             item['Ratings'] = cstats[1]
             item['Reviews'] = cstats[2]
             item['Date'] = datetime.now().strftime('%Y-%m-%d')
@@ -48,4 +51,6 @@ class TopAlbumChartSpider(Spider):
             'a::attr(href)').extract_first()
         if next_page is not None:
             next_page = response.urljoin(next_page)
-            yield Request(next_page, callback=self.parse)
+            self.n_pages += 1
+            if self.n_pages < 31:
+                yield Request(next_page, callback=self.parse)

@@ -5,3 +5,8 @@ def find_between(s, first, last):
         return s[start:end]
     except ValueError:
         return ""
+
+
+def listToString(var):
+    assert isinstance(var, list)
+    return ", ".join(var)
