@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer, String, Float
+import datetime
 
 from . import settings
 
@@ -13,6 +14,10 @@ def db_connect():
 
 
 def create_topalbums_table(engine):
+    Base.metadata.create_all(engine)
+
+
+def create_worstalbums_table(engine):
     Base.metadata.create_all(engine)
 
 
@@ -28,4 +33,19 @@ class TopAlbums(Base):
     RYMRating = Column('RYMRating', Float)
     Ratings = Column('Ratings', Integer)
     Reviews = Column('Reviews', Integer)
-    Date = Column('Date', DateTime)
+    Date = Column('Date', String)
+
+
+class WorstAlbums(Base):
+
+    __tablename__ = 'worst_albums'
+
+    id = Column(Integer, primary_key=True)
+    Artist = Column('Artist', String)
+    Album = Column('Album', String)
+    Chart_year = Column('Chart_year', Integer)
+    Genre = Column('Genre', String)
+    RYMRating = Column('RYMRating', Float)
+    Ratings = Column('Ratings', Integer)
+    Reviews = Column('Reviews', Integer)
+    Date = Column('Date', String)

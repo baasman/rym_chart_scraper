@@ -1,15 +1,15 @@
 from scrapy import Spider, Request
 from rym_chart_scraper.utility import find_between, listToString, removeComma, removeParenthesis
-from rym_chart_scraper.items import TopAlbumChartItem
+from rym_chart_scraper.items import WorstAlbumChartItem
 from datetime import datetime
 
 
-class TopAlbumChartSpider(Spider):
-    name = "top_music_charts"
+class WorstAlbumChartSpider(Spider):
+    name = "worst_music_charts"
     allowed_domains = ['rateyourmusic.com']
 
     start_urls = [
-        "https://rateyourmusic.com/charts/top/album/all-time"
+        "https://rateyourmusic.com/charts/bottom/album/all-time"
     ]
 
     n_pages = 1
@@ -31,7 +31,7 @@ class TopAlbumChartSpider(Spider):
             cstats = [find_between(i, "<b>", "</b>") for i in
                       stats.css('a').extract_first().split("|")]
 
-            item = TopAlbumChartItem()
+            item = WorstAlbumChartItem()
             item['Artist'] = chart_detail_l1.css(
                 'a.artist::text').extract_first()
             item['Album'] = chart_detail_l2.css(
@@ -52,5 +52,5 @@ class TopAlbumChartSpider(Spider):
         if next_page is not None:
             next_page = response.urljoin(next_page)
             self.n_pages += 1
-            if self.n_pages < 40:
-                yield Request(next_page, callback=self.parse)
+            # if self.n_pages < 40:
+            yield Request(next_page, callback=self.parse)

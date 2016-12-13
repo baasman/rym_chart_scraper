@@ -7,16 +7,17 @@ SPIDER_MODULES = ['rym_chart_scraper.spiders']
 NEWSPIDER_MODULE = 'rym_chart_scraper.spiders'
 
 DATABASE = {
-    'drivername': 'postgres',
-    'host': 'localhost',
-    'port': '5432',
-    'username': 'baasman',
-    'password': '',
+    'drivername': 'sqlite',
+   # 'host': 'localhost',
+   # 'port': '5432',
+   # 'username': 'baasman',
+   # 'password': '',
     'database': 'rymscrape'
 }
 
 ITEM_PIPELINES = {
     'rym_chart_scraper.pipelines.TopAlbumPipeline': 300,
+    'rym_chart_scraper.pipelines.WorstAlbumPipeline': 200,
 }
 
 USER_AGENT = 'rym_chart_scraper (+https://github.com/baasman)'

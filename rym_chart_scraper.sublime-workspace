@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"create",
+				"create_engine"
+			],
+			[
+				"remove",
+				"removeParenthesis\tfunction"
+			],
+			[
+				"re",
+				"removeParenthesis\tfunction"
+			],
+			[
 				"topal",
 				"topalbums\tstatement"
 			],
@@ -111,43 +123,7 @@
 			"file": "rym_chart_scraper/spiders/top_music_charts.py",
 			"settings":
 			{
-				"buffer_size": 2126,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "rym_chart_scraper/models.py",
-			"settings":
-			{
-				"buffer_size": 755,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "rym_chart_scraper/settings.py",
-			"settings":
-			{
-				"buffer_size": 2326,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "rym_chart_scraper/pipelines.py",
-			"settings":
-			{
-				"buffer_size": 620,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "rym_chart_scraper/utility.py",
-			"settings":
-			{
-				"buffer_size": 275,
+				"buffer_size": 2202,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -156,36 +132,57 @@
 			"file": "rym_chart_scraper/items.py",
 			"settings":
 			{
-				"buffer_size": 267,
+				"buffer_size": 266,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "scrapy.cfg",
+			"file": "rym_chart_scraper/utility.py",
 			"settings":
 			{
-				"buffer_size": 116,
+				"buffer_size": 532,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "bash: no job control in this shell\nbash-3.2$ ",
+			"file": "rym_chart_scraper/models.py",
 			"settings":
 			{
-				"buffer_size": 45,
+				"buffer_size": 813,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "bash: no job control in this shell\nbash-3.2$ git status\nOn branch master\nYour branch is ahead of 'origin/master' by 1 commit.\n  (use \"git push\" to publish your local commits)\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git checkout -- <file>...\" to discard changes in working directory)\n\n\tmodified:   ../.gitignore\n\tmodified:   ../rym_chart_scraper.sublime-workspace\n\tmodified:   pipelines.py\n\tmodified:   settings.py\n\tmodified:   spiders/__pycache__/__init__.cpython-35.pyc\n\tmodified:   spiders/__pycache__/top_music_charts.cpython-35.pyc\n\tmodified:   spiders/top_music_charts.py\n\tmodified:   utility.py\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\n\tmodels.py\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\nbash-3.2$ git add .\nbash-3.2$ git status\nOn branch master\nYour branch is ahead of 'origin/master' by 1 commit.\n  (use \"git push\" to publish your local commits)\nChanges to be committed:\n  (use \"git reset HEAD <file>...\" to unstage)\n\n\tnew file:   models.py\n\tmodified:   pipelines.py\n\tmodified:   settings.py\n\tmodified:   spiders/__pycache__/__init__.cpython-35.pyc\n\tmodified:   spiders/__pycache__/top_music_charts.cpython-35.pyc\n\tmodified:   spiders/top_music_charts.py\n\tmodified:   utility.py\n\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git checkout -- <file>...\" to discard changes in working directory)\n\n\tmodified:   ../.gitignore\n\tmodified:   ../rym_chart_scraper.sublime-workspace\n\nbash-3.2$ git commit -m 'added item pipelines into postgres'\n[master fa62901] added item pipelines into postgres\n 7 files changed, 94 insertions(+), 43 deletions(-)\n create mode 100644 rym_chart_scraper/models.py\n rewrite rym_chart_scraper/pipelines.py (77%)\n rewrite rym_chart_scraper/spiders/__pycache__/top_music_charts.cpython-35.pyc (77%)\nbash-3.2$ git push\nTo https://github.com/baasman/rym_chart_scraper.git\n   352c5e2..fa62901  master -> master\nbash-3.2$ ",
+			"settings":
+			{
+				"buffer_size": 2029,
 				"line_ending": "Unix",
 				"name": "*REPL* [shell]",
 				"scratch": true
 			}
 		},
 		{
-			"contents": "Jupyter Console 4.1.1\n\n\nIn [1]: from sqlalchemy import create_engine\nfrom sqlalchemy.engine.url import URL\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy import Column, Integer, String, DateTime\n\n\nIn [2]: import settings\n\nBase = declarative_base()\n\n\ndef db_connect():\n    return create_engine(URL(**settings.DATABASE))\n\n\ndef create_deals_table(engine):\n    Base.metadata.create_all(engine)\n\n\nIn [3]: from models import TopAlbums, db_connect, create_topalbums_table\n\nIn [4]: ",
+			"contents": "Jupyter Console 4.1.1\n\n\nIn [1]: from models import TopAlbums, db_connect, create_topalbums_table\nfrom sqlalchemy.orm import sessionmaker\n\n\nclass TopAlbumPipeline:\n    def __init__(self):\n        engine = db_connect()\n        create_topalbums_table(engine)\n        self.Session = sessionmaker(bind=engine)\n\n    def process_item(self, item, spider):\n        session = self.Session()\n        topalbums = TopAlbums(**item)\n\n        try:\n            session.add(topalbums)\n            session.commit()\n        except:\n            session.rollback()\n            raise\n        finally:\n            session.close()\n\n        return item\n\n\nIn [2]: db_connect()\n\nImportErrorTraceback (most recent call last)\n<ipython-input-2-177e46728f23> in <module>()\n----> 1 db_connect()\n\n/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/models.py in db_connect()\n     10 \n     11 def db_connect():\n---> 12     return create_engine(URL(**settings.DATABASE))\n     13 \n     14 \n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/engine/__init__.py in create_engine(*args, **kwargs)\n    385     strategy = kwargs.pop('strategy', default_strategy)\n    386     strategy = strategies.strategies[strategy]\n--> 387     return strategy.create(*args, **kwargs)\n    388 \n    389 \n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/engine/strategies.py in create(self, name_or_url, **kwargs)\n     78                 if k in kwargs:\n     79                     dbapi_args[k] = pop_kwarg(k)\n---> 80             dbapi = dialect_cls.dbapi(**dbapi_args)\n     81 \n     82         dialect_args['dbapi'] = dbapi\n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py in dbapi(cls)\n    552     @classmethod\n    553     def dbapi(cls):\n--> 554         import psycopg2\n    555         return psycopg2\n    556 \n\nImportError: No module named 'psycopg2'\n\nIn [3]: create_topalbums_table()\n\nTypeErrorTraceback (most recent call last)\n<ipython-input-3-b5f918487c4d> in <module>()\n----> 1 create_topalbums_table()\n\nTypeError: create_topalbums_table() missing 1 required positional argument: 'engine'\n\nIn [4]: engine = db_connect()\n\nImportErrorTraceback (most recent call last)\n<ipython-input-4-0c7b63f608f2> in <module>()\n----> 1 engine = db_connect()\n\n/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/models.py in db_connect()\n     10 \n     11 def db_connect():\n---> 12     return create_engine(URL(**settings.DATABASE))\n     13 \n     14 \n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/engine/__init__.py in create_engine(*args, **kwargs)\n    385     strategy = kwargs.pop('strategy', default_strategy)\n    386     strategy = strategies.strategies[strategy]\n--> 387     return strategy.create(*args, **kwargs)\n    388 \n    389 \n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/engine/strategies.py in create(self, name_or_url, **kwargs)\n     78                 if k in kwargs:\n     79                     dbapi_args[k] = pop_kwarg(k)\n---> 80             dbapi = dialect_cls.dbapi(**dbapi_args)\n     81 \n     82         dialect_args['dbapi'] = dbapi\n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py in dbapi(cls)\n    552     @classmethod\n    553     def dbapi(cls):\n--> 554         import psycopg2\n    555         return psycopg2\n    556 \n\nImportError: No module named 'psycopg2'\n\nIn [5]: import rym_chart_scraper.settings\n\nImportErrorTraceback (most recent call last)\n<ipython-input-5-335d65587fa9> in <module>()\n----> 1 import rym_chart_scraper.settings\n\nImportError: No module named 'rym_chart_scraper'\n\nIn [6]: %pwd\nOut[6]: '/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper'\n\nIn [7]: import settings\n\nIn [8]: from sqlalchemy import create_engine\nfrom sqlalchemy.engine.url import URL\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy import Column, Integer, String, DateTime\n\nimport rym_chart_scraper.settings \n\nBase = declarative_base()\n\n\ndef db_connect():\n    return create_engine(URL(**settings.DATABASE))\n\n\ndef create_topalbums_table(engine):\n    Base.metadata.create_all(engine)\n\n\nclass TopAlbums(Base):\n\n    __tablename__ = 'top_albums'\n\n    id = Column(Integer, primary_key=True)\n    Artist = Column('Artist', String)\n    Album = Column('Album', String)\n    Chart_year = Column('Chart_year', String)\n    Genre = Column('Genre', String)\n    Ratings = Column('Ratings', Integer)\n    Reviews = Column('Reviews', Integer)\n    Date = Column('Date', DateTime)\n\n\nImportErrorTraceback (most recent call last)\n<ipython-input-8-c8c730cc3bf0> in <module>()\n----> 1 from binascii import unhexlify as __un; exec(compile(__un(\"66726f6d2073716c616c6368656d7920696d706f7274206372656174655f656e67696e650a66726f6d2073716c616c6368656d792e656e67696e652e75726c20696d706f72742055524c0a66726f6d2073716c616c6368656d792e6578742e6465636c6172617469766520696d706f7274206465636c617261746976655f626173650a66726f6d2073716c616c6368656d7920696d706f727420436f6c756d6e2c20496e74656765722c20537472696e672c204461746554696d650a0a696d706f72742072796d5f63686172745f736372617065722e73657474696e6773200a0a42617365203d206465636c617261746976655f6261736528290a0a0a6465662064625f636f6e6e65637428293a0a2020202072657475726e206372656174655f656e67696e652855524c282a2a73657474696e67732e444154414241534529290a0a0a646566206372656174655f746f70616c62756d735f7461626c6528656e67696e65293a0a20202020426173652e6d657461646174612e6372656174655f616c6c28656e67696e65290a0a0a636c61737320546f70416c62756d732842617365293a0a0a202020205f5f7461626c656e616d655f5f203d2027746f705f616c62756d73270a0a202020206964203d20436f6c756d6e28496e74656765722c207072696d6172795f6b65793d54727565290a20202020417274697374203d20436f6c756d6e2827417274697374272c20537472696e67290a20202020416c62756d203d20436f6c756d6e2827416c62756d272c20537472696e67290a2020202043686172745f79656172203d20436f6c756d6e282743686172745f79656172272c20537472696e67290a2020202047656e7265203d20436f6c756d6e282747656e7265272c20537472696e67290a20202020526174696e6773203d20436f6c756d6e2827526174696e6773272c20496e7465676572290a2020202052657669657773203d20436f6c756d6e282752657669657773272c20496e7465676572290a2020202044617465203d20436f6c756d6e282744617465272c204461746554696d65290a0a\").decode(\"utf-8\"), \"<string>\", \"exec\"))\n\n<string> in <module>()\n\nImportError: No module named 'rym_chart_scraper'\n\nIn [9]: import ..settings \n  File \"<string>\", line 1\n    import ..settings\n           ^\nSyntaxError: invalid syntax\n\n\nIn [10]: import .settings \n  File \"<string>\", line 1\n    import .settings\n           ^\nSyntaxError: invalid syntax\n\n\nIn [11]: from . import settings\n\nSystemErrorTraceback (most recent call last)\n<ipython-input-11-5f64a85b5d09> in <module>()\n----> 1 from binascii import unhexlify as __un; exec(compile(__un(\"66726f6d202e20696d706f72742073657474696e67730a\").decode(\"utf-8\"), \"<string>\", \"exec\"))\n\n<string> in <module>()\n\nSystemError: Parent module '' not loaded, cannot perform relative import\n\nIn [12]: from sqlalchemy import Column, Integer, String, DateTime, Float\n\nIn [13]: var = '(1960)'\n\nIn [14]: def removeParenthesis(var):\n    try:\n        var.replace('(', \"\")\n        var.replace(')', \"\")\n        return var\n    except:\n        return \"\"\n\n\nIn [15]: removeParenthesis(var)\nOut[15]: '(1960)'\n\nIn [16]: var.replace('(', \"\")\nOut[16]: '1960)'\n\nIn [17]: var\nOut[17]: '(1960)'\n\nIn [18]: removeParenthesis(var)\nOut[18]: '(1960)'\n\nIn [19]: def removeParenthesis(var):\n    try:\n        var = var.replace('(', \"\")\n        var = var.replace(')', \"\")\n        return var\n    except:\n        return \"\"\n\n\nIn [20]: var\nOut[20]: '(1960)'\n\nIn [21]: removeParenthesis(var)\nOut[21]: '1960'\n\nIn [22]: from sqlalchemy import create_engine\nfrom sqlalchemy.engine.url import URL\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy import Column, Integer, String, DateTime, Float\n\nfrom . import settings\n\nBase = declarative_base()\n\n\ndef db_connect():\n    return create_engine(URL(**settings.DATABASE))\n\n\ndef create_topalbums_table(engine):\n    Base.metadata.create_all(engine)\n\n\nclass TopAlbums(Base):\n\n    __tablename__ = 'top_albums'\n\n    id = Column(Integer, primary_key=True)\n    Artist = Column('Artist', String)\n    Album = Column('Album', String)\n    Chart_year = Column('Chart_year', Integer)\n    Genre = Column('Genre', String)\n    RYMRating = Column('RYMRating', Float)\n    Ratings = Column('Ratings', Integer)\n    Reviews = Column('Reviews', Integer)\n    Date = Column('Date', DateTime)\n\n\nSystemErrorTraceback (most recent call last)\n<ipython-input-22-642747cb6cb1> in <module>()\n----> 1 from binascii import unhexlify as __un; exec(compile(__un(\"66726f6d2073716c616c6368656d7920696d706f7274206372656174655f656e67696e650a66726f6d2073716c616c6368656d792e656e67696e652e75726c20696d706f72742055524c0a66726f6d2073716c616c6368656d792e6578742e6465636c6172617469766520696d706f7274206465636c617261746976655f626173650a66726f6d2073716c616c6368656d7920696d706f727420436f6c756d6e2c20496e74656765722c20537472696e672c204461746554696d652c20466c6f61740a0a66726f6d202e20696d706f72742073657474696e67730a0a42617365203d206465636c617261746976655f6261736528290a0a0a6465662064625f636f6e6e65637428293a0a2020202072657475726e206372656174655f656e67696e652855524c282a2a73657474696e67732e444154414241534529290a0a0a646566206372656174655f746f70616c62756d735f7461626c6528656e67696e65293a0a20202020426173652e6d657461646174612e6372656174655f616c6c28656e67696e65290a0a0a636c61737320546f70416c62756d732842617365293a0a0a202020205f5f7461626c656e616d655f5f203d2027746f705f616c62756d73270a0a202020206964203d20436f6c756d6e28496e74656765722c207072696d6172795f6b65793d54727565290a20202020417274697374203d20436f6c756d6e2827417274697374272c20537472696e67290a20202020416c62756d203d20436f6c756d6e2827416c62756d272c20537472696e67290a2020202043686172745f79656172203d20436f6c756d6e282743686172745f79656172272c20496e7465676572290a2020202047656e7265203d20436f6c756d6e282747656e7265272c20537472696e67290a2020202052594d526174696e67203d20436f6c756d6e282752594d526174696e67272c20466c6f6174290a20202020526174696e6773203d20436f6c756d6e2827526174696e6773272c20496e7465676572290a2020202052657669657773203d20436f6c756d6e282752657669657773272c20496e7465676572290a2020202044617465203d20436f6c756d6e282744617465272c204461746554696d65290a0a\").decode(\"utf-8\"), \"<string>\", \"exec\"))\n\n<string> in <module>()\n\nSystemError: Parent module '' not loaded, cannot perform relative import\n\nIn [23]: from sqlalchemy import create_engine\nfrom sqlalchemy.engine.url import URL\nfrom sqlalchemy.ext.declarative import declarative_base\n\n\nIn [24]: Base = declarative_base()\n\n\ndef db_connect():\n    return create_engine(URL(**settings.DATABASE))\n\n\nIn [25]: from rym_chart_scraper.settings import settings\n\nImportErrorTraceback (most recent call last)\n<ipython-input-25-b3c9faa5caa6> in <module>()\n----> 1 from rym_chart_scraper.settings import settings\n\nImportError: No module named 'rym_chart_scraper'\n\nIn [26]: import rym_chart_scraper.settings\n\nImportErrorTraceback (most recent call last)\n<ipython-input-26-335d65587fa9> in <module>()\n----> 1 import rym_chart_scraper.settings\n\nImportError: No module named 'rym_chart_scraper'\n\nIn [27]: import os\n\nIn [28]: os.getcwd()\nOut[28]: '/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper'\n\nIn [29]: from . import settings\n\nSystemErrorTraceback (most recent call last)\n<ipython-input-29-f1f879adc3d3> in <module>()\n----> 1 from . import settings\n\nSystemError: Parent module '' not loaded, cannot perform relative import\n\nIn [30]: import rym_chart_scraper\n\nImportErrorTraceback (most recent call last)\n<ipython-input-30-20055bd304a2> in <module>()\n----> 1 import rym_chart_scraper\n\nImportError: No module named 'rym_chart_scraper'\n\nIn [31]: d = DATABASE = {\n    'drivername': 'postgres',\n    'host': 'localhost',\n    'port': '5432',\n    'username': 'baasman',\n    'password': '',\n    'database': 'rymscrape'\n}\n   ....:    ....:    ....:    ....:    ....:    ....:    ....: \nIn [32]: engine = create_engine(URL(**d))\n\nImportErrorTraceback (most recent call last)\n<ipython-input-32-46dda3b7c89f> in <module>()\n----> 1 engine = create_engine(URL(**d))\n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/engine/__init__.py in create_engine(*args, **kwargs)\n    385     strategy = kwargs.pop('strategy', default_strategy)\n    386     strategy = strategies.strategies[strategy]\n--> 387     return strategy.create(*args, **kwargs)\n    388 \n    389 \n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/engine/strategies.py in create(self, name_or_url, **kwargs)\n     78                 if k in kwargs:\n     79                     dbapi_args[k] = pop_kwarg(k)\n---> 80             dbapi = dialect_cls.dbapi(**dbapi_args)\n     81 \n     82         dialect_args['dbapi'] = dbapi\n\n/Users/baasman/anaconda/lib/python3.5/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py in dbapi(cls)\n    552     @classmethod\n    553     def dbapi(cls):\n--> 554         import psycopg2\n    555         return psycopg2\n    556 \n\n/Users/baasman/anaconda/lib/python3.5/site-packages/psycopg2/__init__.py in <module>()\n     48 # Import the DBAPI-2.0 stuff into top-level module.\n     49 \n---> 50 from psycopg2._psycopg import BINARY, NUMBER, STRING, DATETIME, ROWID\n     51 \n     52 from psycopg2._psycopg import Binary, Date, Time, Timestamp\n\nImportError: dlopen(/Users/baasman/anaconda/lib/python3.5/site-packages/psycopg2/_psycopg.cpython-35m-darwin.so, 2): Library not loaded: libssl.1.0.0.dylib\n  Referenced from: /Users/baasman/anaconda/lib/python3.5/site-packages/psycopg2/_psycopg.cpython-35m-darwin.so\n  Reason: image not found\n\nIn [33]: engine = create_engine('postgresql://baasman:tiger@localhost:5432/rymscrape')",
 			"settings":
 			{
-				"buffer_size": 499,
+				"buffer_size": 13729,
 				"line_ending": "Unix",
 				"name": "*REPL* [python]",
+				"read_only": true,
 				"scratch": true
+			}
+		},
+		{
+			"file": "rym_chart_scraper/settings.py",
+			"settings":
+			{
+				"buffer_size": 2324,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -212,17 +209,21 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 87.0,
-		"last_filter": "syntax: she",
+		"height": 147.0,
+		"last_filter": "repl: she",
 		"selected_items":
 		[
 			[
-				"syntax: she",
-				"Set Syntax: Shell Script (Bash)"
-			],
-			[
 				"repl: she",
 				"SublimeREPL: Shell"
+			],
+			[
+				"repl: pyth\t",
+				"SublimeREPL: Python - IPython"
+			],
+			[
+				"syntax: she",
+				"Set Syntax: Shell Script (Bash)"
 			],
 			[
 				"repl: pyt",
@@ -373,14 +374,16 @@
 	],
 	"file_history":
 	[
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/items.py",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/utility.py",
+		"/Users/baasman/.bash_profile",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/settings.py",
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/pipelines.py",
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders/top_albums.jl",
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/scrapy.cfg",
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/.gitignore",
 		"/Users/baasman/.vimrc",
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders/__init__.py",
-		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/items.py",
-		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/utility.py",
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper.sublime-project",
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/top_music_charts.py",
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders/top_music_charts",
@@ -424,6 +427,9 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/baasman/Documents/python-workspace/rym_chart_scraper/",
+			"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders",
+			"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper",
 			"/Users/baasman/Documents/python-workspace/rym_chart_scraper"
 		]
 	},
@@ -432,6 +438,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"postgres",
+			"from",
+			"RYM_rating",
+			"models",
 			"SomePipeline",
 			"create_deals_table",
 			"response_status_cou",
@@ -465,6 +475,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"RYMRating"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -475,7 +486,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -484,15 +495,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2126,
+						"buffer_size": 2202,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2059,
-								2059
+								1984,
+								1984
 							]
 						],
 						"settings":
@@ -502,6 +513,10 @@
 								{
 									"characters": ".",
 									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
 								},
 								{
 									"characters": ".",
@@ -595,501 +610,19 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 223.0,
+						"translation.y": 239.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "rym_chart_scraper/models.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 755,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								233,
-								233
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content"
-							],
-							"open_with_edit": true,
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "rym_chart_scraper/settings.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2326,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								394,
-								394
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										395,
-										396
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/curly_bracket.png",
-										"brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										336,
-										337
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content"
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 192.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "rym_chart_scraper/pipelines.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 620,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								75,
-								75
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content"
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "rym_chart_scraper/utility.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 275,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								275,
-								275
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content"
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 2,
-			"sheets":
-			[
-				{
-					"buffer": 5,
 					"file": "rym_chart_scraper/items.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 267,
+						"buffer_size": 266,
 						"regions":
 						{
 						},
@@ -1182,28 +715,39 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "scrapy.cfg",
-					"semi_transient": true,
+					"buffer": 2,
+					"file": "rym_chart_scraper/utility.py",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 116,
+						"buffer_size": 532,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								116,
-								116
+								513,
+								513
 							]
 						],
 						"settings":
 						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
 							"bracket_highlighter.busy": false,
 							"bracket_highlighter.locations":
 							{
@@ -1278,29 +822,159 @@
 								"bh_square_close",
 								"bh_square_content"
 							],
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 3,
+					"file": "rym_chart_scraper/models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 45,
+						"buffer_size": 813,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								45,
-								45
+								217,
+								217
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"open_with_edit": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2029,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2029,
+								2029
 							]
 						],
 						"settings":
@@ -1308,79 +982,6 @@
 							"auto_complete": true,
 							"auto_indent": false,
 							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content"
-							],
 							"default_dir": "/Users/baasman/Documents/python-workspace/rym_chart_scraper",
 							"detect_indentation": false,
 							"gutter": false,
@@ -1389,7 +990,7 @@
 							"line_numbers": false,
 							"repl": true,
 							"repl_external_id": "shell",
-							"repl_id": "b168e2de5e434851a6f0793ad4ea6c3c",
+							"repl_id": "02a211ceabc7421c892da0c9e5d83b99",
 							"repl_restart_args":
 							{
 								"cmd":
@@ -1428,35 +1029,46 @@
 							"repl_sublime2": false,
 							"smart_indent": false,
 							"spell_check": false,
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 493.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 5,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 499,
+						"buffer_size": 13729,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								499,
-								499
+								13310,
+								13293
 							]
 						],
 						"settings":
 						{
 							"auto_complete": true,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
 							"auto_indent": false,
 							"bracket_highlighter.busy": false,
 							"bracket_highlighter.locations":
@@ -1540,7 +1152,7 @@
 							"line_numbers": false,
 							"repl": true,
 							"repl_external_id": "python",
-							"repl_id": "40504b04476e483cad3761d11c02f4ff",
+							"repl_id": "060c92a381e046e8b93e989587db7d4a",
 							"repl_restart_args":
 							{
 								"autocomplete_server": true,
@@ -1583,10 +1195,112 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 13.0,
+						"translation.y": 5781.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "rym_chart_scraper/settings.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2324,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								403,
+								403
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1625,7 +1339,7 @@
 		"rows":
 		[
 			0.0,
-			0.627876350138,
+			0.466127580222,
 			1.0
 		]
 	},
