@@ -7,7 +7,7 @@ class TopAlbumChartItem(Item):
     Album = Field()
     Chart_year = Field()
     Genre = Field()
-    RYM_rating = Field()
+    RYMRating = Field()
     Ratings = Field()
     Reviews = Field()
     Date = Field()

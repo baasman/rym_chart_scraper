@@ -1,5 +1,5 @@
 from scrapy import Spider, Request
-from rym_chart_scraper.utility import find_between, listToString
+from rym_chart_scraper.utility import find_between, listToString, removeComma, removeParenthesis
 from rym_chart_scraper.items import TopAlbumChartItem
 from datetime import datetime
 
@@ -36,14 +36,14 @@ class TopAlbumChartSpider(Spider):
                 'a.artist::text').extract_first()
             item['Album'] = chart_detail_l2.css(
                 'a.album::text').extract_first()
-            item['Chart_year'] = chart_detail_l2.css(
-                'span.chart_year::text').extract_first()
+            item['Chart_year'] = removeParenthesis(chart_detail_l2.css(
+                'span.chart_year::text').extract_first())
             item['Genre'] = listToString(chart_detail_l3.
                                          css('span.chart_genres').css(
                                              'a.genre::text').extract())
             item['RYMRating'] = cstats[0]
-            item['Ratings'] = cstats[1]
-            item['Reviews'] = cstats[2]
+            item['Ratings'] = removeComma(cstats[1])
+            item['Reviews'] = removeComma(cstats[2])
             item['Date'] = datetime.now().strftime('%Y-%m-%d')
             yield item
 

@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"topal",
+				"topalbums\tstatement"
+			],
+			[
+				"crea",
+				"create_topalbums_table\tfunction"
+			],
+			[
+				"cre",
+				"create_deals_table\tfunction"
+			],
+			[
+				"decla",
+				"declarative_base\timport"
+			],
+			[
+				"sql",
+				"sqlalchemy"
+			],
+			[
+				"R",
+				"RYM_rating"
+			],
+			[
+				"next",
+				"next_page\tstatement"
+			],
+			[
+				"fin",
+				"find_between"
+			],
+			[
+				"chart",
+				"chart_detail_l2\tstatement"
+			],
+			[
+				"cha",
+				"chart_detail_l2\tstatement"
+			],
+			[
+				"char",
+				"chart_detail_l1\tstatement"
+			],
+			[
 				"get",
 				"player.get_player"
 			],
@@ -14,10 +58,6 @@
 			[
 				"url",
 				"urljoin"
-			],
-			[
-				"next",
-				"next_page"
 			],
 			[
 				"hm",
@@ -68,30 +108,83 @@
 	"buffers":
 	[
 		{
-			"contents": "",
+			"file": "rym_chart_scraper/spiders/top_music_charts.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 2126,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "Jupyter Console 4.1.1\n\n\nIn [1]: \nIn [2]: \nIn [3]: dir(player)\nOut[3]: \n['AheadBehind',\n 'CURRENT_SEASON',\n 'ClutchTime',\n 'College',\n 'Conference',\n 'ContextMeasure',\n 'Counter',\n 'Country',\n 'DateFrom',\n 'DateTo',\n 'Direction',\n 'Division',\n 'DraftPick',\n 'DraftYear',\n 'EndPeriod',\n 'EndRange',\n 'GameID',\n 'GameScope',\n 'GameSegment',\n 'Game_Scope',\n 'GroupQuantity',\n 'HAS_PANDAS',\n 'Height',\n 'LastNGames',\n 'League',\n 'Location',\n 'MeasureType',\n 'Month',\n 'OpponentTeamID',\n 'Outcome',\n 'PaceAdjust',\n 'PerMode',\n 'Period',\n 'PlayerCareer',\n 'PlayerClutchSplits',\n 'PlayerDefenseTracking',\n 'PlayerExperience',\n 'PlayerGameLogs',\n 'PlayerGeneralSplits',\n 'PlayerInGameSplits',\n 'PlayerLastNGamesSplits',\n 'PlayerList',\n 'PlayerNotFoundException',\n 'PlayerOpponentSplits',\n 'PlayerOrTeam',\n 'PlayerPassTracking',\n 'PlayerPerformanceSplits',\n 'PlayerPosition',\n 'PlayerProfile',\n 'PlayerReboundLogTracking',\n 'PlayerReboundTracking',\n 'PlayerScope',\n 'PlayerShootingSplits',\n 'PlayerShotLogTracking',\n 'PlayerShotTracking',\n 'PlayerSummary',\n 'PlayerVsPlayer',\n 'PlayerYearOverYearSplits',\n 'Player_or_Team',\n 'PlayoffRound',\n 'PlusMinus',\n 'PtMeasureType',\n 'RangeType',\n 'Rank',\n 'RookieYear',\n 'Scope',\n 'SeasonSegment',\n 'SeasonType',\n 'ShotClockRange',\n 'Sorter',\n 'StartPeriod',\n 'StartRange',\n 'StarterBench',\n 'StatCategory',\n 'TEAMS',\n 'TeamID',\n 'VsConference',\n 'VsDivision',\n 'Weight',\n '_PlayerDashboard',\n '__builtins__',\n '__cached__',\n '__doc__',\n '__file__',\n '__loader__',\n '__name__',\n '__package__',\n '__spec__',\n '_api_scrape',\n '_get_json',\n 'get_player']\n\nIn [4]: player.get_player(\"steph\", \"Curry\")\n\nPlayerNotFoundExceptionTraceback (most recent call last)\n<ipython-input-4-647b3885ba10> in <module>()\n----> 1 player.get_player(\"steph\", \"Curry\")\n\n/Users/baasman/anaconda/lib/python3.5/site-packages/nba_py/player.py in get_player(first_name, last_name, season, only_current, just_id)\n     39         item = next(plyr for plyr in pl if str(plyr[hdr]).lower() == name)\n     40     if len(item) == 0:\n---> 41         raise PlayerNotFoundException\n     42     elif just_id:\n     43         return item['PERSON_ID']\n\nPlayerNotFoundException: \n\nIn [5]: player.get_player(last_name='Curry')\n\nTypeErrorTraceback (most recent call last)\n<ipython-input-5-68627a8176e0> in <module>()\n----> 1 player.get_player(last_name='Curry')\n\nTypeError: get_player() missing 1 required positional argument: 'first_name'\n\nIn [6]: player.get_player(first_name=\"Steph\", last_name='Curry')\n\nPlayerNotFoundExceptionTraceback (most recent call last)\n<ipython-input-6-10db00fe72b4> in <module>()\n----> 1 player.get_player(first_name=\"Steph\", last_name='Curry')\n\n/Users/baasman/anaconda/lib/python3.5/site-packages/nba_py/player.py in get_player(first_name, last_name, season, only_current, just_id)\n     39         item = next(plyr for plyr in pl if str(plyr[hdr]).lower() == name)\n     40     if len(item) == 0:\n---> 41         raise PlayerNotFoundException\n     42     elif just_id:\n     43         return item['PERSON_ID']\n\nPlayerNotFoundException: \n\nIn [7]: pl = player.PlayerList()\n\nIn [8]: dir(p)\n\nNameErrorTraceback (most recent call last)\n<ipython-input-8-1fa06330aff4> in <module>()\n----> 1 dir(p)\n\nNameError: name 'p' is not defined\n\nIn [9]: dir(pl)\nOut[9]: \n['__class__',\n '__delattr__',\n '__dict__',\n '__dir__',\n '__doc__',\n '__eq__',\n '__format__',\n '__ge__',\n '__getattribute__',\n '__gt__',\n '__hash__',\n '__init__',\n '__le__',\n '__lt__',\n '__module__',\n '__ne__',\n '__new__',\n '__reduce__',\n '__reduce_ex__',\n '__repr__',\n '__setattr__',\n '__sizeof__',\n '__str__',\n '__subclasshook__',\n '__weakref__',\n '_endpoint',\n 'info',\n 'json']\n\nIn [10]: pl.info\nOut[10]: <bound method PlayerList.info of <nba_py.player.PlayerList object at 0x115f0b518>>\n\nIn [11]: pl.info()\nOut[11]: \n     PERSON_ID DISPLAY_LAST_COMMA_FIRST     DISPLAY_FIRST_LAST  ROSTERSTATUS  \\\n0       203518            Abrines, Alex           Alex Abrines             1   \n1       203112              Acy, Quincy             Quincy Acy             0   \n2       203500            Adams, Steven           Steven Adams             1   \n3       201167           Afflalo, Arron          Arron Afflalo             1   \n4       201582           Ajinca, Alexis          Alexis Ajinca             1   \n5       202332            Aldrich, Cole           Cole Aldrich             1   \n6       200746       Aldridge, LaMarcus      LaMarcus Aldridge             1   \n7       202730             Allen, Lavoy            Lavoy Allen             1   \n8         2754              Allen, Tony             Tony Allen             1   \n9       202329         Aminu, Al-Farouq        Al-Farouq Aminu             1   \n10        2365          Andersen, Chris         Chris Andersen             1   \n11      101187           Anderson, Alan          Alan Anderson             1   \n12     1626147         Anderson, Justin        Justin Anderson             1   \n13      203937           Anderson, Kyle          Kyle Anderson             1   \n14      201583           Anderson, Ryan          Ryan Anderson             1   \n15      203507   Antetokounmpo, Giannis  Giannis Antetokounmpo             1   \n16        2546         Anthony, Carmelo        Carmelo Anthony             1   \n17        2772            Ariza, Trevor           Trevor Ariza             1   \n18      201589          Arthur, Darrell         Darrell Arthur             1   \n19      201600               Asik, Omer              Omer Asik             1   \n20      201571           Augustin, D.J.          D.J. Augustin             1   \n21      202337            Babbitt, Luke           Luke Babbitt             1   \n22     1627758               Baker, Ron              Ron Baker             1   \n23     1627735            Baldwin, Wade           Wade Baldwin             1   \n24        2571         Barbosa, Leandro        Leandro Barbosa             1   \n25      200826              Barea, J.J.             J.J. Barea             1   \n26      203084         Barnes, Harrison        Harrison Barnes             1   \n27        2440             Barnes, Matt            Matt Barnes             1   \n28      203115             Barton, Will            Will Barton             1   \n29      101138            Bass, Brandon           Brandon Bass             1   \n..         ...                      ...                    ...           ...   \n427     201228               Watson, CJ              CJ Watson             1   \n428       2561              West, David             David West             1   \n429     201566       Westbrook, Russell      Russell Westbrook             1   \n430    1627785        Whitehead, Isaiah       Isaiah Whitehead             1   \n431     202355        Whiteside, Hassan       Hassan Whiteside             1   \n432     203952          Wiggins, Andrew         Andrew Wiggins             1   \n433     203912               Wilcox, CJ              CJ Wilcox             1   \n434    1626210           Williams, Alan          Alan Williams             1   \n435     101114          Williams, Deron         Deron Williams             1   \n436     202682        Williams, Derrick       Derrick Williams             1   \n437     101150            Williams, Lou           Lou Williams             1   \n438     101107         Williams, Marvin        Marvin Williams             1   \n439       2590             Williams, Mo            Mo Williams             1   \n440    1627786           Williams, Troy          Troy Williams             1   \n441    1627787            Wiltjer, Kyle           Kyle Wiltjer             1   \n442    1626159         Winslow, Justise        Justise Winslow             1   \n443     203481             Withey, Jeff            Jeff Withey             1   \n444    1626174          Wood, Christian         Christian Wood             1   \n445       1897       World Peace, Metta      Metta World Peace             1   \n446     201148          Wright, Brandan         Brandan Wright             1   \n447    1626153            Wright, Delon           Delon Wright             1   \n448     203923             Young, James            James Young             1   \n449    1626202               Young, Joe              Joe Young             1   \n450     201156              Young, Nick             Nick Young             1   \n451     201152          Young, Thaddeus         Thaddeus Young             1   \n452     203469             Zeller, Cody            Cody Zeller             1   \n453     203092            Zeller, Tyler           Tyler Zeller             1   \n454    1627757       Zimmerman, Stephen      Stephen Zimmerman             1   \n455    1627835             Zipser, Paul            Paul Zipser             1   \n456    1627826             Zubac, Ivica            Ivica Zubac             1   \n\n    FROM_YEAR TO_YEAR             PLAYERCODE     TEAM_ID      TEAM_CITY  \\\n0        2016    2016           alex_abrines  1610612760  Oklahoma City   \n1        2012    2016             quincy_acy           0                  \n2        2013    2016           steven_adams  1610612760  Oklahoma City   \n3        2007    2016          arron_afflalo  1610612758     Sacramento   \n4        2008    2016          alexis_ajinca  1610612740    New Orleans   \n5        2010    2016           cole_aldrich  1610612750      Minnesota   \n6        2006    2016      lamarcus_aldridge  1610612759    San Antonio   \n7        2011    2016            lavoy_allen  1610612754        Indiana   \n8        2004    2016             tony_allen  1610612763        Memphis   \n9        2010    2016        al-farouq_aminu  1610612757       Portland   \n10       2001    2016         chris_andersen  1610612739      Cleveland   \n11       2005    2016          alan_anderson  1610612746             LA   \n12       2015    2016        justin_anderson  1610612742         Dallas   \n13       2014    2016          kyle_anderson  1610612759    San Antonio   \n14       2008    2016        ryan_j_anderson  1610612745        Houston   \n15       2013    2016  giannis_antetokounmpo  1610612749      Milwaukee   \n16       2003    2016        carmelo_anthony  1610612752       New York   \n17       2004    2016           trevor_ariza  1610612745        Houston   \n18       2008    2016         darrell_arthur  1610612743         Denver   \n19       2010    2016              omer_asik  1610612740    New Orleans   \n20       2008    2016            dj_augustin  1610612753        Orlando   \n21       2010    2016           luke_babbitt  1610612748          Miami   \n22       2016    2016              ron_baker  1610612752       New York   \n23       2016    2016           wade_baldwin  1610612763        Memphis   \n24       2003    2016        leandro_barbosa  1610612756        Phoenix   \n25       2006    2016             j.j._barea  1610612742         Dallas   \n26       2012    2016        harrison_barnes  1610612742         Dallas   \n27       2002    2016            matt_barnes  1610612758     Sacramento   \n28       2012    2016            will_barton  1610612743         Denver   \n29       2005    2016           brandon_bass  1610612746             LA   \n..        ...     ...                    ...         ...            ...   \n427      2007    2016              cj_watson  1610612753        Orlando   \n428      2003    2016             david_west  1610612744   Golden State   \n429      2008    2016      russell_westbrook  1610612760  Oklahoma City   \n430      2016    2016       Isaiah_Whitehead  1610612751       Brooklyn   \n431      2010    2016       hassan_whiteside  1610612748          Miami   \n432      2014    2016         andrew_wiggins  1610612750      Minnesota   \n433      2014    2016              CJ_Wilcox  1610612753        Orlando   \n434      2015    2016          alan_williams  1610612756        Phoenix   \n435      2005    2016         deron_williams  1610612742         Dallas   \n436      2011    2016       derrick_williams  1610612748          Miami   \n437      2005    2016         louis_williams  1610612747    Los Angeles   \n438      2005    2016        marvin_williams  1610612766      Charlotte   \n439      2003    2016            Mo_Williams  1610612739      Cleveland   \n440      2016    2016          troy_williams  1610612763        Memphis   \n441      2016    2016           kyle_wiltjer  1610612745        Houston   \n442      2015    2016        justise_winslow  1610612748          Miami   \n443      2013    2016            jeff_withey  1610612762           Utah   \n444      2015    2016         christian_wood  1610612766      Charlotte   \n445      1999    2016      metta_world peace  1610612747    Los Angeles   \n446      2007    2016         Brandan_Wright  1610612763        Memphis   \n447      2015    2016           delon_wright  1610612761        Toronto   \n448      2014    2016            james_young  1610612738         Boston   \n449      2015    2016              joe_young  1610612754        Indiana   \n450      2007    2016             nick_young  1610612747    Los Angeles   \n451      2007    2016         thaddeus_young  1610612754        Indiana   \n452      2013    2016            cody_zeller  1610612766      Charlotte   \n453      2012    2016           tyler_zeller  1610612738         Boston   \n454      2016    2016      stephen_zimmerman  1610612753        Orlando   \n455      2016    2016            Paul_Zipser  1610612741        Chicago   \n456      2016    2016            Ivica_Zubac  1610612747    Los Angeles   \n\n         TEAM_NAME TEAM_ABBREVIATION     TEAM_CODE GAMES_PLAYED_FLAG  \n0          Thunder               OKC       thunder                 Y  \n1                                                                  Y  \n2          Thunder               OKC       thunder                 Y  \n3            Kings               SAC         kings                 Y  \n4         Pelicans               NOP      pelicans                 Y  \n5     Timberwolves               MIN  timberwolves                 Y  \n6            Spurs               SAS         spurs                 Y  \n7           Pacers               IND        pacers                 Y  \n8        Grizzlies               MEM     grizzlies                 Y  \n9    Trail Blazers               POR       blazers                 Y  \n10       Cavaliers               CLE     cavaliers                 Y  \n11        Clippers               LAC      clippers                 Y  \n12       Mavericks               DAL     mavericks                 Y  \n13           Spurs               SAS         spurs                 Y  \n14         Rockets               HOU       rockets                 Y  \n15           Bucks               MIL         bucks                 Y  \n16          Knicks               NYK        knicks                 Y  \n17         Rockets               HOU       rockets                 Y  \n18         Nuggets               DEN       nuggets                 Y  \n19        Pelicans               NOP      pelicans                 Y  \n20           Magic               ORL         magic                 Y  \n21            Heat               MIA          heat                 Y  \n22          Knicks               NYK        knicks                 Y  \n23       Grizzlies               MEM     grizzlies                 Y  \n24            Suns               PHX          suns                 Y  \n25       Mavericks               DAL     mavericks                 Y  \n26       Mavericks               DAL     mavericks                 Y  \n27           Kings               SAC         kings                 Y  \n28         Nuggets               DEN       nuggets                 Y  \n29        Clippers               LAC      clippers                 Y  \n..             ...               ...           ...               ...  \n427          Magic               ORL         magic                 Y  \n428       Warriors               GSW      warriors                 Y  \n429        Thunder               OKC       thunder                 Y  \n430           Nets               BKN          nets                 Y  \n431           Heat               MIA          heat                 Y  \n432   Timberwolves               MIN  timberwolves                 Y  \n433          Magic               ORL         magic                 Y  \n434           Suns               PHX          suns                 Y  \n435      Mavericks               DAL     mavericks                 Y  \n436           Heat               MIA          heat                 Y  \n437         Lakers               LAL        lakers                 Y  \n438        Hornets               CHA       hornets                 Y  \n439      Cavaliers               CLE     cavaliers                 Y  \n440      Grizzlies               MEM     grizzlies                 Y  \n441        Rockets               HOU       rockets                 Y  \n442           Heat               MIA          heat                 Y  \n443           Jazz               UTA          jazz                 Y  \n444        Hornets               CHA       hornets                 Y  \n445         Lakers               LAL        lakers                 Y  \n446      Grizzlies               MEM     grizzlies                 Y  \n447        Raptors               TOR       raptors                 Y  \n448        Celtics               BOS       celtics                 Y  \n449         Pacers               IND        pacers                 Y  \n450         Lakers               LAL        lakers                 Y  \n451         Pacers               IND        pacers                 Y  \n452        Hornets               CHA       hornets                 Y  \n453        Celtics               BOS       celtics                 Y  \n454          Magic               ORL         magic                 Y  \n455          Bulls               CHI         bulls                 Y  \n456         Lakers               LAL        lakers                 Y  \n\n[457 rows x 13 columns]\n\nIn [12]: pl.info().head()\nOut[12]: \n   PERSON_ID DISPLAY_LAST_COMMA_FIRST DISPLAY_FIRST_LAST  ROSTERSTATUS  \\\n0     203518            Abrines, Alex       Alex Abrines             1   \n1     203112              Acy, Quincy         Quincy Acy             0   \n2     203500            Adams, Steven       Steven Adams             1   \n3     201167           Afflalo, Arron      Arron Afflalo             1   \n4     201582           Ajinca, Alexis      Alexis Ajinca             1   \n\n  FROM_YEAR TO_YEAR     PLAYERCODE     TEAM_ID      TEAM_CITY TEAM_NAME  \\\n0      2016    2016   alex_abrines  1610612760  Oklahoma City   Thunder   \n1      2012    2016     quincy_acy           0                            \n2      2013    2016   steven_adams  1610612760  Oklahoma City   Thunder   \n3      2007    2016  arron_afflalo  1610612758     Sacramento     Kings   \n4      2008    2016  alexis_ajinca  1610612740    New Orleans  Pelicans   \n\n  TEAM_ABBREVIATION TEAM_CODE GAMES_PLAYED_FLAG  \n0               OKC   thunder                 Y  \n1                                             Y  \n2               OKC   thunder                 Y  \n3               SAC     kings                 Y  \n4               NOP  pelicans                 Y  \n\nIn [13]: dim(pl.info())\n\nNameErrorTraceback (most recent call last)\n<ipython-input-13-85bb5e133366> in <module>()\n----> 1 dim(pl.info())\n\nNameError: name 'dim' is not defined\n\nIn [14]: pl.info().shape\nOut[14]: (457, 13)\n\nIn [15]: ",
+			"file": "rym_chart_scraper/models.py",
 			"settings":
 			{
-				"buffer_size": 19290,
+				"buffer_size": 755,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "rym_chart_scraper/settings.py",
+			"settings":
+			{
+				"buffer_size": 2326,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "rym_chart_scraper/pipelines.py",
+			"settings":
+			{
+				"buffer_size": 620,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "rym_chart_scraper/utility.py",
+			"settings":
+			{
+				"buffer_size": 275,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "rym_chart_scraper/items.py",
+			"settings":
+			{
+				"buffer_size": 267,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scrapy.cfg",
+			"settings":
+			{
+				"buffer_size": 116,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "bash: no job control in this shell\nbash-3.2$ ",
+			"settings":
+			{
+				"buffer_size": 45,
 				"line_ending": "Unix",
-				"name": "*REPL* [python]",
+				"name": "*REPL* [shell]",
 				"scratch": true
 			}
 		},
 		{
-			"contents": "bash: no job control in this shell\nbash-3.2$ ls\nAnaconda\nSublimeLinter\nSublimeREPL\nUser\nbackrefs\nmarkupsafe\nmdpopups\npygments\npython-jinja2\npython-markdown\nbash-3.2$ cd ..\nbash-3.2$ ls\nBackup\nCache\nIndex\nInstalled Packages\nLocal\nPackages\nbash-3.2$ \nbash-3.2$ bash-3.2$ cd /Users/baasman/Documents/python-workspace/rym_chart_sc\r<rs/baasman/Documents/python-workspace/rym_chart_scr                        aper/rym_chart_scraper\nbash: bash-3.2$: command not found\nbash-3.2$ pwd\n/Users/baasman/Library/Application Support/Sublime Text 3\nbash-3.2$ \nbash-3.2$ bash-3.2$ cd /Users/baasman/Documents/python-workspace/\nbash: bash-3.2$: command not found\nbash-3.2$ cd /Users\nbash-3.2$ ls\nShared\nbaasman\nbash-3.2$ cd baasman/Documents/python-workspace/rym_chart_scraper\nbash-3.2$ ls\nrym_chart_scraper\nscrapy.cfg\nbash-3.2$ cd rym_chart_scraper\nbash-3.2$ ls\n__init__.py\n__pycache__\nitems.py\npipelines.py\nsettings.py\nspiders\nbash-3.2$ less settings.py\n# -*- coding: utf-8 -*-\n\n# Scrapy settings for rym_chart_scraper project\n#\n# For simplicity, this file contains only settings considered important or\n# commonly used. You can find more settings consulting the documentation:\n#\n#     http://doc.scrapy.org/en/latest/topics/settings.html\n#     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html\n#     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html\n\nBOT_NAME = 'rym_chart_scraper'\n\nSPIDER_MODULES = ['rym_chart_scraper.spiders']\nNEWSPIDER_MODULE = 'rym_chart_scraper.spiders'\n\n\n# Crawl responsibly by identifying yourself (and your website) on the user-agent\n#USER_AGENT = 'rym_chart_scraper (+http://www.yourdomain.com)'\n\n# Obey robots.txt rules\nROBOTSTXT_OBEY = True\n\n# Configure maximum concurrent requests performed by Scrapy (default: 16)\n#CONCURRENT_REQUESTS = 32\n\n# Configure a delay for requests for the same website (default: 0)\n# See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay\n# See also autothrottle settings and docs\n#DOWNLOAD_DELAY = 3\n# The download delay setting will honor only one of:\n#CONCURRENT_REQUESTS_PER_DOMAIN = 16\n#CONCURRENT_REQUESTS_PER_IP = 16\n\n# Disable cookies (enabled by default)\n#COOKIES_ENABLED = False\n\n# Disable Telnet Console (enabled by default)\n#TELNETCONSOLE_ENABLED = False\n\n# Override the default request headers:\n#DEFAULT_REQUEST_HEADERS = {\n#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',\n#   'Accept-Language': 'en',\n#}\n\n# Enable or disable spider middlewares\n# See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html\n#SPIDER_MIDDLEWARES = {\n#    'rym_chart_scraper.middlewares.MyCustomSpiderMiddleware': 543,\n#}\n\n# Enable or disable downloader middlewares\n# See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html\n#DOWNLOADER_MIDDLEWARES = {\n#    'rym_chart_scraper.middlewares.MyCustomDownloaderMiddleware': 543,\n#}\n\n# Enable or disable extensions\n# See http://scrapy.readthedocs.org/en/latest/topics/extensions.html\n#EXTENSIONS = {\n#    'scrapy.extensions.telnet.TelnetConsole': None,\n#}\n\n# Configure item pipelines\n# See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html\n#ITEM_PIPELINES = {\n#    'rym_chart_scraper.pipelines.SomePipeline': 300,\n#}\n\n# Enable and configure the AutoThrottle extension (disabled by default)\n# See http://doc.scrapy.org/en/latest/topics/autothrottle.html\n#AUTOTHROTTLE_ENABLED = True\n# The initial download delay\n#AUTOTHROTTLE_START_DELAY = 5\n# The maximum download delay to be set in case of high latencies\n#AUTOTHROTTLE_MAX_DELAY = 60\n# The average number of requests Scrapy should be sending in parallel to\n# each remote server\n#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0\n# Enable showing throttling stats for every response received:\n#AUTOTHROTTLE_DEBUG = False\n\n# Enable and configure HTTP caching (disabled by default)\n# See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings\n#HTTPCACHE_ENABLED = True\n#HTTPCACHE_EXPIRATION_SECS = 0\n#HTTPCACHE_DIR = 'httpcache'\n#HTTPCACHE_IGNORE_HTTP_CODES = []\n#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'\nbash-3.2$ ",
+			"contents": "Jupyter Console 4.1.1\n\n\nIn [1]: from sqlalchemy import create_engine\nfrom sqlalchemy.engine.url import URL\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy import Column, Integer, String, DateTime\n\n\nIn [2]: import settings\n\nBase = declarative_base()\n\n\ndef db_connect():\n    return create_engine(URL(**settings.DATABASE))\n\n\ndef create_deals_table(engine):\n    Base.metadata.create_all(engine)\n\n\nIn [3]: from models import TopAlbums, db_connect, create_topalbums_table\n\nIn [4]: ",
 			"settings":
 			{
-				"buffer_size": 4164,
+				"buffer_size": 499,
 				"line_ending": "Unix",
-				"name": "*REPL* [shell]",
+				"name": "*REPL* [python]",
 				"scratch": true
 			}
 		}
@@ -119,10 +212,42 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 107.0,
-		"last_filter": "repl: shel\t",
+		"height": 87.0,
+		"last_filter": "syntax: she",
 		"selected_items":
 		[
+			[
+				"syntax: she",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"repl: she",
+				"SublimeREPL: Shell"
+			],
+			[
+				"repl: pyt",
+				"SublimeREPL: Python - IPython"
+			],
+			[
+				"git: ",
+				"Git: Gui"
+			],
+			[
+				"gitig",
+				"Gitignore: New gitignore"
+			],
+			[
+				"install p",
+				"Package Control: Install Package"
+			],
+			[
+				"syntax: shel",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"repl: shel",
+				"SublimeREPL: Shell"
+			],
 			[
 				"repl: shel\t",
 				"SublimeREPL: Shell"
@@ -220,7 +345,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 507.0
+		"width": 521.0
 	},
 	"console":
 	{
@@ -241,10 +366,24 @@
 	"expanded_folders":
 	[
 		"/Users/baasman/Documents/python-workspace/rym_chart_scraper",
-		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper"
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/__pycache__",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders/__pycache__"
 	],
 	"file_history":
 	[
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/pipelines.py",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders/top_albums.jl",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/scrapy.cfg",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/.gitignore",
+		"/Users/baasman/.vimrc",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders/__init__.py",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/items.py",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/utility.py",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper.sublime-project",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/top_music_charts.py",
+		"/Users/baasman/Documents/python-workspace/rym_chart_scraper/rym_chart_scraper/spiders/top_music_charts",
 		"/Users/baasman/Documents/python-workspace/tutorial/tutorial/spiders/quotes_spider.py",
 		"/Users/baasman/Documents/python-workspace/tutorial/tutorial/spiders/quotes.json",
 		"/Users/baasman/Documents/python-workspace/tutorial/tutorial/spiders/quotes-2.html",
@@ -278,13 +417,14 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			"/Users/baasman/Documents/python-workspace/rym_chart_scraper"
 		]
 	},
 	"find_state":
@@ -292,6 +432,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"SomePipeline",
+			"create_deals_table",
+			"response_status_cou",
+			"str",
+			"scrapy",
+			"Artist",
+			"()",
+			"artist",
+			"scrapy",
+			"i",
+			"div",
+			"shell",
 			", ",
 			"page",
 			"http",
@@ -323,23 +475,397 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "rym_chart_scraper/spiders/top_music_charts.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 2126,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2059,
+								2059
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 223.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "rym_chart_scraper/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 755,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								233,
+								233
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"open_with_edit": true,
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "rym_chart_scraper/settings.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								394,
+								394
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										395,
+										396
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"brackethighlighter.default"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										336,
+										337
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 192.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "rym_chart_scraper/pipelines.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 620,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								75,
+								75
 							]
 						],
 						"settings":
@@ -435,34 +961,28 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
+				},
 				{
-					"buffer": 1,
+					"buffer": 4,
+					"file": "rym_chart_scraper/utility.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19290,
+						"buffer_size": 275,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								19290,
-								19290
+								275,
+								275
 							]
 						],
 						"settings":
 						{
-							"auto_complete": true,
 							"auto_complete_triggers":
 							[
 								{
@@ -474,6 +994,318 @@
 									"selector": "source.python - string - constant.numeric"
 								}
 							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 5,
+					"file": "rym_chart_scraper/items.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 267,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "scrapy.cfg",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 116,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								116,
+								116
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 45,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								45,
+								45
+							]
+						],
+						"settings":
+						{
+							"auto_complete": true,
 							"auto_indent": false,
 							"bracket_highlighter.busy": false,
 							"bracket_highlighter.locations":
@@ -549,6 +1381,158 @@
 								"bh_square_close",
 								"bh_square_content"
 							],
+							"default_dir": "/Users/baasman/Documents/python-workspace/rym_chart_scraper",
+							"detect_indentation": false,
+							"gutter": false,
+							"history_arrows": true,
+							"indent_subsequent_lines": false,
+							"line_numbers": false,
+							"repl": true,
+							"repl_external_id": "shell",
+							"repl_id": "b168e2de5e434851a6f0793ad4ea6c3c",
+							"repl_restart_args":
+							{
+								"cmd":
+								{
+									"linux":
+									[
+										"bash",
+										"-i"
+									],
+									"osx":
+									[
+										"bash",
+										"-i"
+									],
+									"windows":
+									[
+										"cmd.exe"
+									]
+								},
+								"cmd_postfix": "\n",
+								"cwd": "$file_path",
+								"encoding":
+								{
+									"linux": "utf-8",
+									"osx": "utf-8",
+									"windows": "$win_cmd_encoding"
+								},
+								"env":
+								{
+								},
+								"external_id": "shell",
+								"suppress_echo": true,
+								"syntax": "Packages/Text/Plain text.tmLanguage",
+								"type": "subprocess"
+							},
+							"repl_sublime2": false,
+							"smart_indent": false,
+							"spell_check": false,
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 499,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								499,
+								499
+							]
+						],
+						"settings":
+						{
+							"auto_complete": true,
+							"auto_indent": false,
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"default_dir": "/Users/baasman/Documents/python-workspace/rym_chart_scraper",
 							"detect_indentation": false,
 							"gutter": false,
 							"history_arrows": true,
@@ -556,7 +1540,7 @@
 							"line_numbers": false,
 							"repl": true,
 							"repl_external_id": "python",
-							"repl_id": "5974c3c039db42169379ef8dcc52756e",
+							"repl_id": "40504b04476e483cad3761d11c02f4ff",
 							"repl_restart_args":
 							{
 								"autocomplete_server": true,
@@ -599,160 +1583,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6663.0,
+						"translation.y": 13.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4164,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4164,
-								4164
-							]
-						],
-						"settings":
-						{
-							"auto_complete": true,
-							"auto_indent": false,
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content"
-							],
-							"detect_indentation": false,
-							"gutter": false,
-							"history_arrows": true,
-							"indent_subsequent_lines": false,
-							"line_numbers": false,
-							"repl": true,
-							"repl_external_id": "shell",
-							"repl_id": "680ff9af21594c7b82bbd8cbc6f9a8d2",
-							"repl_restart_args":
-							{
-								"cmd":
-								{
-									"linux":
-									[
-										"bash",
-										"-i"
-									],
-									"osx":
-									[
-										"bash",
-										"-i"
-									],
-									"windows":
-									[
-										"cmd.exe"
-									]
-								},
-								"cmd_postfix": "\n",
-								"cwd": "$file_path",
-								"encoding":
-								{
-									"linux": "utf-8",
-									"osx": "utf-8",
-									"windows": "$win_cmd_encoding"
-								},
-								"env":
-								{
-								},
-								"external_id": "shell",
-								"suppress_echo": true,
-								"syntax": "Packages/Text/Plain text.tmLanguage",
-								"type": "subprocess"
-							},
-							"repl_sublime2": false,
-							"smart_indent": false,
-							"spell_check": false,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1593.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -764,7 +1598,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 31.0
 	},
 	"layout":
 	{
@@ -791,7 +1625,7 @@
 		"rows":
 		[
 			0.0,
-			0.5,
+			0.627876350138,
 			1.0
 		]
 	},
@@ -803,6 +1637,10 @@
 	"output.find_results":
 	{
 		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 100.0
 	},
 	"pinned_build_system": "Packages/Python/Python.sublime-build",
 	"project": "rym_chart_scraper.sublime-project",
@@ -850,7 +1688,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 144.0,
+	"side_bar_width": 198.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

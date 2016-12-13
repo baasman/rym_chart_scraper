@@ -10,3 +10,19 @@ def find_between(s, first, last):
 def listToString(var):
     assert isinstance(var, list)
     return ", ".join(var)
+
+
+def removeComma(var):
+    try:
+        return var.replace(',', "")
+    except:
+        return ""
+
+
+def removeParenthesis(var):
+    try:
+        var = var.replace('(', "")
+        var = var.replace(')', "")
+        return var
+    except:
+        return ""
